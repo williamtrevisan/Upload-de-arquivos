@@ -16,7 +16,7 @@ if($fileSent){
     $obUpload->generateNewName();
 
     //MOVE OS ARQUIVOS DE UPLOAD
-    $sucesso = $obUpload->upload(__DIR__.'/Files', false);
+    $sucesso = $obUpload->upload(__DIR__ . '/Files', false);
     if($sucesso){
         echo 'Arquivo <strong>'.$obUpload->getBasename().'</strong> enviado com sucesso.';
         exit;
