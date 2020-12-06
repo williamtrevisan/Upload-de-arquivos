@@ -1,0 +1,29 @@
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+use \App\File\Upload;
+
+$fileSent = isset($_FILES['arquivo']);
+if($fileSent){
+
+    $uploads = Upload::createMultiUpload($_FILES['arquivo']);
+
+    foreach($uploads as $obUpload){
+        //NOVO NOME ALEATÓRIO
+        $obUpload->generateNewName();
+
+        //MOVE OS ARQUIVOS DE UPLOAD
+        $sucesso = $obUpload->upload(__DIR__.'/Files', false);
+        if($sucesso){
+            echo 'Arquivo <strong>'.$obUpload->getBasename().'</strong> enviado com sucesso.<br>';
+            continue;
+        }
+
+        echo 'Problemas ao enviar o arquivo.<br>';
+    }
+
+    exit;
+}
+
+include __DIR__.'/Includes/formulario-multi.php';
